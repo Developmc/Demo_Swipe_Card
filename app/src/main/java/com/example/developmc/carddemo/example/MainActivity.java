@@ -1,12 +1,18 @@
-package com.example.developmc.carddemo;
+package com.example.developmc.carddemo.example;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.example.developmc.carddemo.CardConfig;
+import com.example.developmc.carddemo.OverLayCardLayoutManager;
+import com.example.developmc.carddemo.R;
+import com.example.developmc.carddemo.callback.CardCallBack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
         //设置adapter
         adapter = new CardAdapter();
         recyclerView.setAdapter(adapter);
+        //初始化callBack
+        CardCallBack cardCallBack = new CardCallBack(datas,recyclerView,adapter,0,
+                ItemTouchHelper.DOWN | ItemTouchHelper.UP | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+        //设置callback
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(cardCallBack);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
     private void initData(){
         datas = new ArrayList<>();
